@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OMDB</title>
+    <title>Error</title>
 
     <link
       rel="stylesheet"
@@ -12,7 +12,16 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <div>
+      <h2>Usted ya se encuentra autenticado, no puede realizar esa accion</h2>
+      <a href="/"
+        ><button type="button" class="btn btn-success">Go back!</button></a
+      >
+
+      <a href="/logout"
+        ><button type="button" class="btn btn-danger">Logout</button>
+      </a>
+    </div>
     <script type="text/javascript" src="/bundle.js"></script>
   </body>
 </html>

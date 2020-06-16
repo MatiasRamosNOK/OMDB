@@ -5,6 +5,32 @@ class User extends S.Model {}
 
 User.init(
   {
+    sessionID: {
+      type: S.STRING,
+    },
+    moviesID: {
+      type: S.STRING,
+      defaultValue: "",
+      get() {
+        var array = this.getDataValue("moviesID");
+        return array.split(",");
+      },
+      set: function (value) {
+        if (this.getDataValue("moviesID").includes(value)) {
+          //Si el valor ya existe lo elimino
+          this.setDataValue(
+            "moviesID",
+            this.getDataValue("moviesID").replace(`,${value}`, "")
+          );
+        } else {
+          //Sino lo seteo
+          this.setDataValue(
+            "moviesID",
+            this.getDataValue("moviesID") + "," + value
+          );
+        }
+      },
+    },
     email: {
       type: S.STRING,
       allowNull: false,

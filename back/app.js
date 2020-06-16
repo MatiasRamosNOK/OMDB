@@ -1,5 +1,4 @@
-"use strict";
-
+var createError = require("http-errors");
 var express = require("express");
 var session = require("express-session");
 var cookieParser = require("cookie-parser");
@@ -17,6 +16,7 @@ const volleyball = require("volleyball");
 app.use(volleyball);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session({ secret: "BootcampP5" }));
 app.use(passport.initialize());
@@ -26,7 +26,7 @@ passport.use(
   new LocalStrategy(
     { usernameField: "email", passwordField: "password" },
     function (inputEmail, inputPassword, done) {
-      console.log("Estoy por buscar un ussuario");
+      console.log("Estoy por buscar un usuario");
 
       User.findOne({
         where: {
@@ -40,6 +40,7 @@ passport.use(
           if (!user.validPassword(inputPassword)) {
             return done(null, false, { message: "Incorrect password." });
           }
+
           return done(null, user);
         })
         .catch((err) => {
@@ -52,14 +53,17 @@ passport.use(
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
-
 passport.deserializeUser(function (id, done) {
-  User.findByPk(id, function (err, user) {
-    done(err, user);
+  User.findByPk(id).then((user) => {
+    done(null, user);
   });
 });
 
-db.sync()
+app.use("/", routes);
+
+app.use("/users", users);
+
+db.sync({ force: true })
   .then(() => {
     console.log("Se ha iniciado el servidor");
     app.listen(3000);
@@ -67,9 +71,5 @@ db.sync()
   .catch((err) => {
     console.log(err);
   });
-
-app.use("/", routes);
-
-app.use("/users", users);
 
 module.exports = app;

@@ -32,6 +32,7 @@ class Main extends React.Component {
     return (
       <div>
         <User />
+        <br></br>
         <h1>Hola!, ¿Que deseas buscar?</h1>
         <form>
           <input
@@ -41,33 +42,32 @@ class Main extends React.Component {
             }}
           />
         </form>
-        <div>
-          <ul>
-            {this.state.movies.Search.Response == "True"
-              ? this.state.movies.Search.Search.map((movie) => {
-                  return (
-                    <li key={movie.imdbID}>
-                      <Link to={`/movie/${movie.imdbID}`}>
-                        <div className="contenedorMovie">
-                          <div className="infoMovie">
-                            <h2>{movie.Title}</h2>
-                            {console.log(movie)}
-                            {movie.Poster != "N/A" ? (
-                              <img src={movie.Poster} alt="image" />
-                            ) : (
-                              <p>Image not found</p>
-                            )}
-                          </div>
+        <div id="contenido">
+          {this.state.movies.Search.Response == "True"
+            ? this.state.movies.Search.Search.map((movie) => {
+                return (
+                  <div key={movie.imdbID} className="contenedorMovie">
+                    <Link to={`/movie/${movie.imdbID}`}>
+                      <div>
+                        <div className="titleMovie">
+                          <h4>{movie.Title}</h4>
                         </div>
-                      </Link>
-                    </li>
-                  );
-                })
-              : console.log(
-                  "Entro al null con:",
-                  this.state.movies.Search.Search
-                )}
-          </ul>
+                        <div className="imgMovie">
+                          {movie.Poster != "N/A" ? (
+                            <img src={movie.Poster} alt="image" />
+                          ) : (
+                            <p>Image not found</p>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })
+            : console.log(
+                "Entro al null con:",
+                this.state.movies.Search.Search
+              )}
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import store from "../redux/store";
 import { Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { fetchMovies } from "../redux/actions/movies";
+import SingleUser from "../containers/SingleUser";
 
 import SingleMovie from "../components/SingleMovie";
 class MainContainer extends React.Component {
@@ -34,6 +35,11 @@ class MainContainer extends React.Component {
           render={({ match }) => (
             <SingleMovie data={this.state.data} match={match.params.id} />
           )}
+        ></Route>
+
+        <Route
+          path="/user/:id"
+          render={({ match }) => <SingleUser match={match.params.id} />}
         ></Route>
       </Switch>
     );

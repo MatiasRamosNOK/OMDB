@@ -2,15 +2,36 @@ html {
   scroll-behavior: smooth;
 }
 
-.infoMovie {
-  width: 100%;
+#contenido {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 90%;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
   height: 100%;
-  display: inline-block;
 }
+
 .contenedorMovie {
-  text-align: center;
-  background-color: burlywood;
-  width: 25%;
-  height: 25%;
+  align-items: center;
+  width: 33%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.titleMovie {
+  width: 100%;
+}
+.imgMovie {
+  width: 100%;
+}
+
+.contPeliUser {
   margin-bottom: 10px;
+}
+
+img {
+  height: 350px;
 }
