@@ -43,6 +43,14 @@ body {
   margin: 0 auto;
 }
 
+.inputData {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
 img {
   height: 350px;
 }

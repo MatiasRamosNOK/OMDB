@@ -54,7 +54,7 @@ router.post("/register", function (req, res, next) {
   obj.sessionID = req.sessionID;
   User.create(obj).then((user) => {
     console.log(user);
-    res.redirect("/users/login");
+    res.status(200).send("Ok");
   });
 });
 

@@ -63,13 +63,17 @@ class NavBar extends React.Component {
           <div>
             <Nav variant="pills" defaultActiveKey="/home">
               <Nav.Item>
-                <Nav.Link href="/users/login" style={{ color: "#f0ffff" }}>
-                  Login
+                <Nav.Link>
+                  <Link to={"/users/login"} style={{ color: "#f0ffff" }}>
+                    Login
+                  </Link>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="/users/register" style={{ color: "#f0ffff" }}>
-                  Register
+                <Nav.Link style={{ color: "#f0ffff" }}>
+                  <Link to={"/users/register"} style={{ color: "#f0ffff" }}>
+                    Register
+                  </Link>
                 </Nav.Link>
               </Nav.Item>
             </Nav>

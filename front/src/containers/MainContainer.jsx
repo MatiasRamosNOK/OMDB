@@ -5,8 +5,9 @@ import { Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { fetchMovies } from "../redux/actions/movies";
 import SingleUser from "../containers/SingleUser";
-
+import Login from "../components/Login";
 import SingleMovie from "../components/SingleMovie";
+import Register from "../components/Register";
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -40,6 +41,13 @@ class MainContainer extends React.Component {
         <Route
           path="/user/:id"
           render={({ match }) => <SingleUser match={match.params.id} />}
+        ></Route>
+
+        <Route path="/users/login" render={() => <Login />}></Route>
+
+        <Route
+          path="/users/register"
+          render={({ match }) => <Register />}
         ></Route>
       </Switch>
     );
