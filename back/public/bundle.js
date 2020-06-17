@@ -4375,6 +4375,40 @@ function isPlainObject(value) {
 
 /***/ }),
 
+/***/ "./node_modules/node-fetch/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/node-fetch/browser.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// ref: https://github.com/tc39/proposal-global
+var getGlobal = function () {
+	// the only reliable means to get the global object is
+	// `Function('return this')()`
+	// However, this causes CSP violations in Chrome apps.
+	if (typeof self !== 'undefined') { return self; }
+	if (typeof window !== 'undefined') { return window; }
+	if (typeof global !== 'undefined') { return global; }
+	throw new Error('unable to locate global object');
+}
+
+var global = getGlobal();
+
+module.exports = exports = global.fetch;
+
+// Needed for TypeScript and Webpack.
+exports.default = global.fetch.bind(global);
+
+exports.Headers = global.Headers;
+exports.Request = global.Request;
+exports.Response = global.Response;
+
+/***/ }),
+
 /***/ "./node_modules/object-assign/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
@@ -43602,8 +43636,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap_Jumbotron__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap/Jumbotron */ "./node_modules/react-bootstrap/esm/Jumbotron.js");
 /* harmony import */ var _redux_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/store */ "./src/redux/store.js");
 /* harmony import */ var _redux_actions_oneUserData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux/actions/oneUserData */ "./src/redux/actions/oneUserData.js");
-/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var react_bootstrap_Carousel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap/Carousel */ "./node_modules/react-bootstrap/esm/Carousel.js");
+/* harmony import */ var react_bootstrap_Carousel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap/Carousel */ "./node_modules/react-bootstrap/esm/Carousel.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43625,7 +43658,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 
 
 
@@ -43659,12 +43691,19 @@ var SingleUserNotMe = /*#__PURE__*/function (_React$Component) {
         _this2.setState(_redux_store__WEBPACK_IMPORTED_MODULE_4__["default"].getState());
       });
       console.log("Las props son: ", this.props.match);
+      console.log("El estado es:", this.state);
       _redux_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch(Object(_redux_actions_oneUserData__WEBPACK_IMPORTED_MODULE_5__["fetchUserOne"])(this.props.match));
+      console.log("El estado ahora es:", this.state);
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       this.unsubscribe();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevState) {
+      console.log("prevState", prevState);
     }
   }, {
     key: "render",
@@ -43693,13 +43732,19 @@ var SingleUserNotMe = /*#__PURE__*/function (_React$Component) {
         style: {
           color: "white"
         }
-      }, this.state.user.user.email))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Jumbotron__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        style: {
-          color: "black",
-          width: "70%",
-          margin: "0 auto"
+      }, this.state.user.user.email))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Jumbotron__WEBPACK_IMPORTED_MODULE_3__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello, this is the profile of:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, this.state.userOne.userOne.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Favourites movies:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, Object.keys(this.state.userOne.userOne).includes("moviesData") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Carousel__WEBPACK_IMPORTED_MODULE_6__["default"], null, this.state.userOne.userOne.moviesData.map(function (movie, index) {
+        {
+          console.log("MOVIE ES:", movie);
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello, this is the profile of:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, this.state.userOne.userOne.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Favourites movies:"))));
+
+        if (movie.data.Response == "True") {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Carousel__WEBPACK_IMPORTED_MODULE_6__["default"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            className: "d-block w-100",
+            src: movie.data.Poster,
+            alt: "First slide"
+          }));
+        }
+      })) : null))));
     }
   }]);
 
@@ -44336,6 +44381,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var fetch = __webpack_require__(/*! node-fetch */ "./node_modules/node-fetch/browser.js");
+
 var receiveUserOne = function receiveUserOne(userOne) {
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_1__["USER_DATA_ONE"],
@@ -44345,8 +44392,23 @@ var receiveUserOne = function receiveUserOne(userOne) {
 
 var fetchUserOne = function fetchUserOne(id) {
   return function (dispatch, getState) {
+    var dataUser = new Object();
+    dataUser.moviesData = [];
+    var arrayPeliculas = [];
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/users/getOne/".concat(id)).then(function (res) {
-      dispatch(receiveUserOne(res.data));
+      dataUser = res.data;
+      arrayPeliculas = res.data.moviesID;
+      var peliculas = [];
+
+      for (var i = 0; i < arrayPeliculas.length; i++) {
+        var movieId = arrayPeliculas[i];
+        peliculas.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://omdbapi.com/?apikey=20dac387&i=".concat(movieId)));
+      }
+
+      Promise.all(peliculas).then(function (algo) {
+        dataUser.moviesData = algo;
+        dispatch(receiveUserOne(dataUser));
+      });
     });
   };
 };

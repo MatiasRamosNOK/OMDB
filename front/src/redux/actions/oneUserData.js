@@ -16,25 +16,20 @@ export const fetchUserOne = function (id) {
     axios.get(`/users/getOne/${id}`).then((res) => {
       dataUser = res.data;
       arrayPeliculas = res.data.moviesID;
-      let peliculas = await Promise.all(
-        arrayPeliculas.map(async movie =>{
-          let movieResponse = await fetch(`http://omdbapi.com/?apikey=20dac387&i=${movie}`)
-          return movieResponse.json()
-        })
-      );
 
-      console.log("Las peliculas son:",peliculas);
-      arrayPeliculas.map((movie, index) => {
-        axios
-          .get(`http://omdbapi.com/?apikey=20dac387&i=${movie}`)
-          .then((res) => {
-            arrayPeliculas[index] = res.data;
-          });
-      });
-      setTimeout(function () {
-        dataUser.moviesData = arrayPeliculas;
+      let peliculas = [];
+
+      for (var i = 0; i < arrayPeliculas.length; i++) {
+        let movieId = arrayPeliculas[i];
+        peliculas.push(
+          axios.get(`http://omdbapi.com/?apikey=20dac387&i=${movieId}`)
+        );
+      }
+
+      Promise.all(peliculas).then((algo) => {
+        dataUser.moviesData = algo;
         dispatch(receiveUserOne(dataUser));
-      }, 3000);
+      });
     });
   };
 };

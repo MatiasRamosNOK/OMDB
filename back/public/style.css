@@ -69,3 +69,15 @@ a {
   color: white;
   text-decoration: none;
 }
+
+.jumbotron {
+  color: azure;
+  width: 50%;
+  margin: 0 auto;
+  background-color: rgb(64, 60, 58);
+}
+
+.carousel {
+  width: 45%;
+  margin: 0 auto;
+}

@@ -73,12 +73,12 @@ class SingleUserNotMe extends React.Component {
                     {
                       console.log("MOVIE ES:", movie);
                     }
-                    if (movie.Response == "True") {
+                    if (movie.data.Response == "True") {
                       return (
                         <Carousel.Item>
                           <img
                             className="d-block w-100"
-                            src={movie.Poster}
+                            src={movie.data.Poster}
                             alt="First slide"
                           />
                         </Carousel.Item>
