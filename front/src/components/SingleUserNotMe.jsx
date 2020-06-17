@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import store from "../redux/store";
 import { fetchUserOne } from "../redux/actions/oneUserData";
-import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
 class SingleUserNotMe extends React.Component {
   constructor(props) {
@@ -17,10 +16,16 @@ class SingleUserNotMe extends React.Component {
       this.setState(store.getState());
     });
     console.log("Las props son: ", this.props.match);
+    console.log("El estado es:", this.state);
     store.dispatch(fetchUserOne(this.props.match));
+    console.log("El estado ahora es:", this.state);
   }
   componentWillUnmount() {
     this.unsubscribe();
+  }
+
+  componentDidUpdate(prevState) {
+    console.log("prevState", prevState);
   }
 
   render() {
@@ -55,10 +60,34 @@ class SingleUserNotMe extends React.Component {
           </Navbar>
         </div>
         <div>
-          <Jumbotron style={{ color: "black", width: "70%", margin: "0 auto" }}>
+          <Jumbotron>
             <h1>Hello, this is the profile of:</h1>
             <h2>{this.state.userOne.userOne.email}</h2>
             <h3>Favourites movies:</h3>
+            <div>
+              {Object.keys(this.state.userOne.userOne).includes(
+                "moviesData"
+              ) ? (
+                <Carousel>
+                  {this.state.userOne.userOne.moviesData.map((movie, index) => {
+                    {
+                      console.log("MOVIE ES:", movie);
+                    }
+                    if (movie.Response == "True") {
+                      return (
+                        <Carousel.Item>
+                          <img
+                            className="d-block w-100"
+                            src={movie.Poster}
+                            alt="First slide"
+                          />
+                        </Carousel.Item>
+                      );
+                    }
+                  })}
+                </Carousel>
+              ) : null}
+            </div>
           </Jumbotron>
         </div>
       </div>
