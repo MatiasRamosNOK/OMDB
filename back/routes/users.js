@@ -33,6 +33,32 @@ router.get("/isAutenticated", (req, res, next) => {
   }
 });
 
+router.get("/getOne/:id", (req, res, next) => {
+  User.findByPk(req.params.id).then((user) => {
+    var obj = new Object();
+    obj.email = user.email;
+    obj.moviesID = user.moviesID;
+    res.send(obj);
+  });
+});
+
+router.get("/getAll/:id", (req, res, next) => {
+  var idUser = req.params.id;
+
+  User.findAll().then((users) => {
+    var array = [];
+    for (var i = 0; i < users.length; i++) {
+      var user = new Object();
+      user.id = users[i].dataValues.id;
+      user.moviesID = users[i].dataValues.moviesID;
+      user.email = users[i].dataValues.email;
+      array[i] = user;
+    }
+    array = array.filter((x) => x.id != idUser);
+    res.send(array);
+  });
+});
+
 router.post("/login", passport.authenticate("local"), function (
   req,
   res,

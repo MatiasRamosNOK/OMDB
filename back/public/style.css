@@ -7,6 +7,16 @@ body {
   color: #f0ffff;
 }
 
+.list-group-item {
+  color: black;
+}
+
+.list-group {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
 #contenido {
   display: flex;
   flex-direction: row;

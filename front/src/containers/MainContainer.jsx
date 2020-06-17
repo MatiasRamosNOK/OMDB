@@ -8,6 +8,8 @@ import SingleUser from "../containers/SingleUser";
 import Login from "../components/Login";
 import SingleMovie from "../components/SingleMovie";
 import Register from "../components/Register";
+import AllUsers from "../containers/AllUsers";
+import SingleUserNotMe from "../components/SingleUserNotMe";
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -39,15 +41,22 @@ class MainContainer extends React.Component {
         ></Route>
 
         <Route
-          path="/user/:id"
-          render={({ match }) => <SingleUser match={match.params.id} />}
+          path="/users/register"
+          render={({ match }) => <Register />}
         ></Route>
 
         <Route path="/users/login" render={() => <Login />}></Route>
 
+        <Route path="/user/lookUsers" render={() => <AllUsers />}></Route>
+
         <Route
-          path="/users/register"
-          render={({ match }) => <Register />}
+          path="/users/:id"
+          render={({ match }) => <SingleUserNotMe match={match.params.id} />}
+        ></Route>
+
+        <Route
+          path="/user/:id"
+          render={({ match }) => <SingleUser match={match.params.id} />}
         ></Route>
       </Switch>
     );
