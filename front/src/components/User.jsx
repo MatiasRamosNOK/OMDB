@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -60,12 +61,18 @@ class NavBar extends React.Component {
           </nav>
         ) : (
           <div>
-            <a href="/users/login">
-              <p>Login</p>
-            </a>
-            <a href="/users/register">
-              <p>Register</p>
-            </a>
+            <Nav variant="pills" defaultActiveKey="/home">
+              <Nav.Item>
+                <Nav.Link href="/users/login" style={{ color: "#f0ffff" }}>
+                  Login
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/users/register" style={{ color: "#f0ffff" }}>
+                  Register
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
           </div>
         )}
       </div>

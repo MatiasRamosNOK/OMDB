@@ -2,6 +2,11 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background-color: #211f1e;
+  color: #f0ffff;
+}
+
 #contenido {
   display: flex;
   flex-direction: row;
@@ -16,8 +21,9 @@ html {
 
 .contenedorMovie {
   align-items: center;
-  width: 33%;
+  width: 25%;
   height: 100%;
+  margin-top: 15px;
   margin-bottom: 20px;
 }
 
@@ -30,6 +36,11 @@ html {
 
 .contPeliUser {
   margin-bottom: 10px;
+}
+
+#inputUser {
+  width: 50%;
+  margin: 0 auto;
 }
 
 img {
