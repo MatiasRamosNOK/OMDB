@@ -54,3 +54,8 @@ body {
 img {
   height: 350px;
 }
+
+a {
+  color: white;
+  text-decoration: none;
+}

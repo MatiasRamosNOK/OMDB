@@ -17,10 +17,17 @@ router.get("/login", function (req, res, next) {
 router.get("/isAutenticated", (req, res, next) => {
   if (req.isAuthenticated()) {
     var data = req.session.passport;
-    console.log("La data del back es:", data);
     var obj = new Object();
-    obj.data = data;
-    res.status(200).send(obj);
+    console.log("La data del back es:", data);
+    User.findByPk(data.user).then((user) => {
+      console.log("El usuario es:", user);
+      obj.id = user.dataValues.id;
+      obj.sessionID = user.dataValues.sessionID;
+      obj.moviesID = user.dataValues.moviesID;
+      obj.email = user.dataValues.email;
+      console.log("El objeto en el back es:", obj);
+      res.status(200).send(obj);
+    });
   } else {
     res.status(204).send("No esta autenticado");
   }

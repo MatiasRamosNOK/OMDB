@@ -16,11 +16,8 @@ class Main extends React.Component {
 
   changeHandler(e) {
     e.preventDefault();
-    console.log(e.target.value);
     store.dispatch(fetchMovies(e.target.value));
   }
-
-  componentDidUpdate(prevState) {}
 
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
@@ -76,10 +73,7 @@ class Main extends React.Component {
                   </div>
                 );
               })
-            : console.log(
-                "Entro al null con:",
-                this.state.movies.Search.Search
-              )}
+            : null}
         </div>
       </div>
     );

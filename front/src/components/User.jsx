@@ -2,63 +2,55 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-class NavBar extends React.Component {
+import Navbar from "react-bootstrap/Navbar";
+import store from "../redux/store";
+import { fetchUser } from "../redux/actions/user";
+class NavBarUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { autenticated: false, userId: null };
+    this.state = store.getState();
   }
 
   componentDidMount() {
-    var respuesta;
-    axios
-      .get(`/users/isAutenticated`)
-      .then(function (response) {
-        // handle success
-        console.log("La data del front es:", response);
-        respuesta = response;
-      })
-      .then(() => {
-        if (respuesta.status == 200) {
-          this.setState({
-            autenticated: true,
-            userId: respuesta.data.data.user,
-          });
-        }
-      });
+    this.unsubscribe = store.subscribe(() => {
+      this.setState(store.getState());
+    });
+    store.dispatch(fetchUser());
+  }
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
+    {
+      console.log("El estado quedo asi:", this.state);
+    }
     return (
       <div>
-        {this.state.autenticated ? (
-          <nav className="navbar navbar-expand-lg  navbar-dark bg-dark">
-            <a className="navbar-brand">OMDB</a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div className="navbar-nav">
-                <Link className="nav-item nav-link active" to="/">
-                  Home <span className="sr-only">(current)</span>
-                </Link>
+        {this.state.user.user != "" ? (
+          <Navbar>
+            <Link className="nav-item nav-link active" to="/">
+              Home <span className="sr-only">(current)</span>
+            </Link>
 
-                <Link
-                  className="nav-item nav-link"
-                  to={`/user/${this.state.userId}`}
-                >
-                  My profile
-                </Link>
-              </div>
-            </div>
-          </nav>
+            <Link
+              className="nav-item nav-link"
+              to={`/user/${this.state.user.user.id}`}
+            >
+              My profile
+            </Link>
+
+            <Link className="nav-item nav-link" to={`/user/lookUsers`}>
+              Look for friends!
+            </Link>
+
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text style={{ color: "white" }}>
+                Signed in as:
+                <p style={{ color: "white" }}>{this.state.user.user.email}</p>
+              </Navbar.Text>
+            </Navbar.Collapse>
+          </Navbar>
         ) : (
           <div>
             <Nav variant="pills" defaultActiveKey="/home">
@@ -83,4 +75,4 @@ class NavBar extends React.Component {
     );
   }
 }
-export default NavBar;
+export default NavBarUser;
