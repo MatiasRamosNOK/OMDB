@@ -6,6 +6,7 @@ import axios from "axios";
 import Favorites from "../components/Favorites";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
+import Spinner from "react-bootstrap/Spinner";
 var obj;
 class SingleMovie extends React.Component {
   constructor(props) {
@@ -65,7 +66,9 @@ class SingleMovie extends React.Component {
             </div>
           </div>
         ) : (
-          <p>Cargando contenido...</p>
+          <div className="spinnerDIV">
+            <Spinner animation="border" variant="info" />
+          </div>
         )}
       </div>
     );

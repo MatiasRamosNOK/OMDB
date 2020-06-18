@@ -99,3 +99,9 @@ a {
   display: flex;
   width: 60%;
 }
+
+.spinnerDIV {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
