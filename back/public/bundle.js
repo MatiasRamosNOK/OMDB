@@ -43904,7 +43904,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap/Navbar */ "./node_modules/react-bootstrap/esm/Navbar.js");
 /* harmony import */ var react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap/Nav */ "./node_modules/react-bootstrap/esm/Nav.js");
 /* harmony import */ var react_bootstrap_ListGroup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap/ListGroup */ "./node_modules/react-bootstrap/esm/ListGroup.js");
-/* harmony import */ var _redux_actions_users__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/actions/users */ "./src/redux/actions/users.js");
+/* harmony import */ var react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap/InputGroup */ "./node_modules/react-bootstrap/esm/InputGroup.js");
+/* harmony import */ var react_bootstrap_FormControl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap/FormControl */ "./node_modules/react-bootstrap/esm/FormControl.js");
+/* harmony import */ var _redux_actions_users__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/actions/users */ "./src/redux/actions/users.js");
+/* harmony import */ var _redux_actions_filterList__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/actions/filterList */ "./src/redux/actions/filterList.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43934,7 +43937,9 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var array = [1, 2, 3];
+
+
+
 
 var AllUsers = /*#__PURE__*/function (_React$Component) {
   _inherits(AllUsers, _React$Component);
@@ -43948,6 +43953,8 @@ var AllUsers = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = _redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
+    _this.onChangeUsers = _this.onChangeUsers.bind(_assertThisInitialized(_this));
+    _this.inicialState = _this.inicialState.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -43959,7 +43966,28 @@ var AllUsers = /*#__PURE__*/function (_React$Component) {
       this.unsubscribe = _redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].subscribe(function () {
         _this2.setState(_redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].getState());
       });
-      _redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(Object(_redux_actions_users__WEBPACK_IMPORTED_MODULE_6__["fetchUsers"])(this.state.user.user.id));
+      _redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(Object(_redux_actions_users__WEBPACK_IMPORTED_MODULE_8__["fetchUsers"])(this.state.user.user.id));
+    }
+  }, {
+    key: "inicialState",
+    value: function inicialState() {
+      _redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(Object(_redux_actions_filterList__WEBPACK_IMPORTED_MODULE_9__["fetchList"])(this.state.users.users));
+    }
+  }, {
+    key: "onChangeUsers",
+    value: function onChangeUsers(e) {
+      var user = e.target.value;
+      var newList = [];
+
+      if (user == "") {
+        newList = this.state.users.users;
+        _redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(Object(_redux_actions_filterList__WEBPACK_IMPORTED_MODULE_9__["fetchList"])(newList));
+      } else {
+        newList = this.state.users.users.filter(function (x) {
+          return x.email.includes(user);
+        });
+        _redux_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(Object(_redux_actions_filterList__WEBPACK_IMPORTED_MODULE_9__["fetchList"])(newList));
+      }
     }
   }, {
     key: "componentWillUnmount",
@@ -43969,6 +43997,8 @@ var AllUsers = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       {
         console.log("El estado es:", this.state);
       }
@@ -43993,7 +44023,21 @@ var AllUsers = /*#__PURE__*/function (_React$Component) {
         style: {
           color: "white"
         }
-      }, this.state.user.user.email))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_ListGroup__WEBPACK_IMPORTED_MODULE_5__["default"], null, this.state.users.users.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.users.users.map(function (user) {
+      }, this.state.user.user.email))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        className: "mb-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_6__["default"].Prepend, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_InputGroup__WEBPACK_IMPORTED_MODULE_6__["default"].Text, {
+        id: "basic-addon1"
+      }, "User email:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_FormControl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        placeholder: "Waiting...",
+        "aria-label": "Username",
+        "aria-describedby": "basic-addon1",
+        onChange: function onChange(e) {
+          return _this3.onChangeUsers(e);
+        },
+        onClick: function onClick() {
+          return _this3.inicialState();
+        }
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_ListGroup__WEBPACK_IMPORTED_MODULE_5__["default"], null, this.state.users.users.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.filterUser.list.map(function (user) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_ListGroup__WEBPACK_IMPORTED_MODULE_5__["default"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/users/".concat(user.id)
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -44299,6 +44343,34 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEB
 
 /***/ }),
 
+/***/ "./src/redux/actions/filterList.js":
+/*!*****************************************!*\
+  !*** ./src/redux/actions/filterList.js ***!
+  \*****************************************/
+/*! exports provided: fetchList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchList", function() { return fetchList; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/redux/constants.js");
+
+
+var receiveData = function receiveData(list) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_0__["FILTER_USERS"],
+    list: list
+  };
+};
+
+var fetchList = function fetchList(list) {
+  return function (dispatch, getState) {
+    dispatch(receiveData(list));
+  };
+};
+
+/***/ }),
+
 /***/ "./src/redux/actions/movie.js":
 /*!************************************!*\
   !*** ./src/redux/actions/movie.js ***!
@@ -44485,7 +44557,7 @@ var fetchUsers = function fetchUsers(id) {
 /*!********************************!*\
   !*** ./src/redux/constants.js ***!
   \********************************/
-/*! exports provided: RECEIVE_MOVIE, USER_DATA, USERS_DATA, USER_DATA_ONE, RECEIVE_MOVIES */
+/*! exports provided: RECEIVE_MOVIE, USER_DATA, USERS_DATA, USER_DATA_ONE, RECEIVE_MOVIES, FILTER_USERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44495,11 +44567,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "USERS_DATA", function() { return USERS_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "USER_DATA_ONE", function() { return USER_DATA_ONE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_MOVIES", function() { return RECEIVE_MOVIES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FILTER_USERS", function() { return FILTER_USERS; });
 var RECEIVE_MOVIE = "RECEIVE_MOVIE";
 var USER_DATA = "USER_DATA";
 var USERS_DATA = "USERS_DATA";
 var USER_DATA_ONE = "USER_DATA_ONE";
 var RECEIVE_MOVIES = "RECEIVE_MOVIES";
+var FILTER_USERS = "FILTER_USERS";
+
+/***/ }),
+
+/***/ "./src/redux/reducers/filterList-reducer.js":
+/*!**************************************************!*\
+  !*** ./src/redux/reducers/filterList-reducer.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return reducer; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/redux/constants.js");
+
+var inicialState = {
+  list: []
+};
+function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : inicialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _constants__WEBPACK_IMPORTED_MODULE_0__["FILTER_USERS"]:
+      return Object.assign({}, state, {
+        list: action.list
+      });
+
+    default:
+      return state;
+  }
+}
 
 /***/ }),
 
@@ -44518,6 +44624,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reducers_user_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/user-reducer */ "./src/redux/reducers/user-reducer.js");
 /* harmony import */ var _reducers_users_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/users-reducer */ "./src/redux/reducers/users-reducer.js");
 /* harmony import */ var _reducers_userOne_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/userOne-reducer */ "./src/redux/reducers/userOne-reducer.js");
+/* harmony import */ var _reducers_filterList_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../reducers/filterList-reducer */ "./src/redux/reducers/filterList-reducer.js");
+
 
 
 
@@ -44529,7 +44637,8 @@ __webpack_require__.r(__webpack_exports__);
   movie: _reducers_movie_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   user: _reducers_user_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   users: _reducers_users_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  userOne: _reducers_userOne_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
+  userOne: _reducers_userOne_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  filterUser: _reducers_filterList_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 }));
 
 /***/ }),

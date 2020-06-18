@@ -4,10 +4,13 @@ import movieReducer from "../reducers/movie-reducer";
 import userReducer from "../reducers/user-reducer";
 import usersReducer from "../reducers/users-reducer";
 import userOneReducer from "../reducers/userOne-reducer";
+import filterUser from "../reducers/filterList-reducer";
+
 export default combineReducers({
   movies: moviesReducer,
   movie: movieReducer,
   user: userReducer,
   users: usersReducer,
   userOne: userOneReducer,
+  filterUser: filterUser,
 });

@@ -63,7 +63,7 @@ app.use("/", routes);
 
 app.use("/users", users);
 
-db.sync()
+db.sync({ force: true })
   .then(() => {
     console.log("Se ha iniciado el servidor");
     app.listen(3000);
