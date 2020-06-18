@@ -85,10 +85,15 @@ router.post("/register", function (req, res, next) {
   console.log("ID SESSION REGISTER:", req.sessionID);
   var obj = req.body;
   obj.sessionID = req.sessionID;
-  User.create(obj).then((user) => {
-    console.log(user);
-    res.status(200).send("Ok");
-  });
+  User.create(obj)
+    .then((user) => {
+      console.log(user);
+      res.status(200).send("Ok");
+    })
+    .catch((err) => {
+      console.log("it comes from catch");
+      res.status(205).send("Email is already in use");
+    });
 });
 
 router.post("/:idUser/addMovie/:idMovie", (req, res, next) => {

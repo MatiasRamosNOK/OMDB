@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { Redirect } from "react-router";
+import Toast from "react-bootstrap/Toast";
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +11,7 @@ class Register extends React.Component {
       email: "",
       password: "",
       redirect: false,
+      wrongData: false,
     };
 
     this.submitInfo = this.submitInfo.bind(this);
@@ -23,17 +25,20 @@ class Register extends React.Component {
       if (resp.request.status == 200) {
         this.setState({ redirect: true });
       }
+      if (resp.request.status == 205) {
+        this.setState({ wrongData: true, email: "" });
+      }
     });
   }
 
   changeEmail(e) {
     console.log(e.target.value);
-    this.setState({ email: e.target.value });
+    this.setState({ email: e.target.value, wrongData: false });
   }
 
   changePassword(e) {
     console.log(e.target.value);
-    this.setState({ password: e.target.value });
+    this.setState({ password: e.target.value, wrongData: false });
   }
 
   render() {
@@ -50,6 +55,7 @@ class Register extends React.Component {
               placeholder="Email"
               name="email"
               onChange={this.changeEmail}
+              value={this.state.email}
             />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
@@ -65,9 +71,15 @@ class Register extends React.Component {
               onChange={this.changePassword}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Sign up
-          </Button>
+          {this.state.wrongData ? (
+            <Button variant="danger" type="submit">
+              Email already in use!
+            </Button>
+          ) : (
+            <Button variant="primary" type="submit">
+              Sign up
+            </Button>
+          )}
         </Form>
       </div>
     );

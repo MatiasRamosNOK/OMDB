@@ -24,14 +24,7 @@ class SingleUserNotMe extends React.Component {
     this.unsubscribe();
   }
 
-  componentDidUpdate(prevState) {
-    console.log("prevState", prevState);
-  }
-
   render() {
-    {
-      console.log(this.state);
-    }
     return (
       <div>
         <div>
@@ -61,34 +54,41 @@ class SingleUserNotMe extends React.Component {
         </div>
         <div>
           <Jumbotron>
-            <h1>Hello, this is the profile of:</h1>
-            <h2>{this.state.userOne.userOne.email}</h2>
-            <h3>Favourites movies:</h3>
-            <div>
-              {Object.keys(this.state.userOne.userOne).includes("moviesData") &&
-              this.state.userOne.userOne.moviesData.length > 1 ? (
-                <Carousel>
-                  {this.state.userOne.userOne.moviesData.map((movie, index) => {
-                    {
-                      console.log("MOVIE ES:", movie);
-                    }
-                    if (movie.data.Response == "True") {
-                      return (
-                        <Carousel.Item>
-                          <img
-                            className="d-block w-100"
-                            src={movie.data.Poster}
-                            alt="First slide"
-                          />
-                        </Carousel.Item>
-                      );
-                    }
-                  })}
-                </Carousel>
-              ) : (
-                <p>Nothing here</p>
-              )}
-            </div>
+            {Object.keys(this.state.userOne.userOne).includes("email") ? (
+              <div>
+                <h1>Hello, this is the profile of:</h1>
+                <h2>{this.state.userOne.userOne.email}</h2>
+                <h3>Favourites movies:</h3>
+                <div>
+                  {Object.keys(this.state.userOne.userOne).includes(
+                    "moviesData"
+                  ) && this.state.userOne.userOne.moviesData.length > 1 ? (
+                    <Carousel>
+                      {this.state.userOne.userOne.moviesData.map(
+                        (movie, index) => {
+                          {
+                            console.log("MOVIE ES:", movie);
+                          }
+                          if (movie.data.Response == "True") {
+                            return (
+                              <Carousel.Item>
+                                <img
+                                  className="d-block w-100"
+                                  src={movie.data.Poster}
+                                  alt="First slide"
+                                />
+                              </Carousel.Item>
+                            );
+                          }
+                        }
+                      )}
+                    </Carousel>
+                  ) : (
+                    <p>Nothing here</p>
+                  )}
+                </div>
+              </div>
+            ) : null}
           </Jumbotron>
         </div>
       </div>
