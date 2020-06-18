@@ -127,13 +127,15 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete("/:idUser/:idMovie", (req, res, next) => {
-  User.findByPk(req.params.idUser)
-    .then((user) => {
-      user.update({ moviesID: req.params.idMovie });
-    })
-    .then(() => {
-      res.send("Ok");
+  User.findByPk(req.params.idUser).then((user) => {
+    user.update({ moviesID: req.params.idMovie }).then((user) => {
+      console.log("User despues del delete:", user);
+      var obj = new Object();
+      obj.email = user.dataValues.email;
+      obj.moviesID = user.dataValues.moviesID;
+      res.send(obj);
     });
+  });
 });
 
 module.exports = router;
