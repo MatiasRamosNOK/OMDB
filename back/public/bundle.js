@@ -43019,7 +43019,8 @@ var Login = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       email: "",
       password: "",
-      redirect: false
+      redirect: false,
+      wrongData: false
     };
     _this.submitInfo = _this.submitInfo.bind(_assertThisInitialized(_this));
     _this.changeEmail = _this.changeEmail.bind(_assertThisInitialized(_this));
@@ -43040,6 +43041,12 @@ var Login = /*#__PURE__*/function (_React$Component) {
             redirect: true
           });
         }
+      })["catch"](function (err) {
+        _this2.setState({
+          email: "",
+          password: "",
+          wrongData: true
+        });
       });
     }
   }, {
@@ -43047,7 +43054,8 @@ var Login = /*#__PURE__*/function (_React$Component) {
     value: function changeEmail(e) {
       console.log(e.target.value);
       this.setState({
-        email: e.target.value
+        email: e.target.value,
+        wrongData: false
       });
     }
   }, {
@@ -43055,7 +43063,8 @@ var Login = /*#__PURE__*/function (_React$Component) {
     value: function changePassword(e) {
       console.log(e.target.value);
       this.setState({
-        password: e.target.value
+        password: e.target.value,
+        wrongData: false
       });
     }
   }, {
@@ -43090,7 +43099,11 @@ var Login = /*#__PURE__*/function (_React$Component) {
         placeholder: "Password",
         name: "password",
         onChange: this.changePassword
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Text, {
+        className: "text-muted"
+      }, "We'll never ask for your password.")), this.state.wrongData ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        variant: "danger"
+      }, "Invalid data") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
         variant: "primary",
         type: "submit"
       }, "Sign in")));

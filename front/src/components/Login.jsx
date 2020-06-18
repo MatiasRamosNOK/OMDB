@@ -10,6 +10,7 @@ class Login extends React.Component {
       email: "",
       password: "",
       redirect: false,
+      wrongData: false,
     };
     this.submitInfo = this.submitInfo.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
@@ -19,21 +20,26 @@ class Login extends React.Component {
   submitInfo(e) {
     e.preventDefault();
     console.log(e);
-    axios.post("/users/Login", this.state).then((resp) => {
-      if (resp.request.status == 200) {
-        this.setState({ redirect: true });
-      }
-    });
+    axios
+      .post("/users/Login", this.state)
+      .then((resp) => {
+        if (resp.request.status == 200) {
+          this.setState({ redirect: true });
+        }
+      })
+      .catch((err) => {
+        this.setState({ email: "", password: "", wrongData: true });
+      });
   }
 
   changeEmail(e) {
     console.log(e.target.value);
-    this.setState({ email: e.target.value });
+    this.setState({ email: e.target.value, wrongData: false });
   }
 
   changePassword(e) {
     console.log(e.target.value);
-    this.setState({ password: e.target.value });
+    this.setState({ password: e.target.value, wrongData: false });
   }
 
   render() {
@@ -66,10 +72,18 @@ class Login extends React.Component {
               name="password"
               onChange={this.changePassword}
             />
+
+            <Form.Text className="text-muted">
+              We'll never ask for your password.
+            </Form.Text>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Sign in
-          </Button>
+          {this.state.wrongData ? (
+            <Button variant="danger">Invalid data</Button>
+          ) : (
+            <Button variant="primary" type="submit">
+              Sign in
+            </Button>
+          )}
         </Form>
       </div>
     );
