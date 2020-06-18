@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import { fetchUsers } from "../redux/actions/users";
@@ -39,6 +40,7 @@ class AllUsers extends React.Component {
     }
   }
   componentWillUnmount() {
+    store.dispatch(fetchList(this.state.users.users));
     this.unsubscribe();
   }
 

@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import store from "../redux/store";
 import { fetchUser } from "../redux/actions/user";
+import Button from "react-bootstrap/Button";
 class NavBarUser extends React.Component {
   constructor(props) {
     super(props);
@@ -45,10 +46,12 @@ class NavBarUser extends React.Component {
             </Link>
 
             <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text style={{ color: "white" }}>
-                Signed in as:
-                <p style={{ color: "white" }}>{this.state.user.user.email}</p>
+              <Navbar.Text style={{ color: "white", marginRight: "10px" }}>
+                Welcome {this.state.user.user.email}
               </Navbar.Text>
+              <a href="/logout">
+                <Button variant="info">Logout</Button>
+              </a>
             </Navbar.Collapse>
           </Navbar>
         ) : (
