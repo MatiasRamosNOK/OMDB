@@ -4,3 +4,4 @@ export const USERS_DATA = "USERS_DATA";
 export const USER_DATA_ONE = "USER_DATA_ONE";
 export const RECEIVE_MOVIES = "RECEIVE_MOVIES";
 export const FILTER_USERS = "FILTER_USERS";
+export const ADD_FAVORITE = "ADD_FAVORITE";

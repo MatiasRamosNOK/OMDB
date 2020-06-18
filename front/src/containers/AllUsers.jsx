@@ -28,6 +28,7 @@ class AllUsers extends React.Component {
   inicialState() {
     store.dispatch(fetchList(this.state.users.users));
   }
+
   onChangeUsers(e) {
     var user = e.target.value;
     var newList = [];

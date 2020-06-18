@@ -91,19 +91,19 @@ router.post("/register", function (req, res, next) {
   });
 });
 
-router.get("/addMovie/:id", (req, res, next) => {
-  var idSession = req.sessionID;
-  var idMovie = req.params.id;
+router.post("/:idUser/addMovie/:idMovie", (req, res, next) => {
+  var idUser = req.params.idUser;
+  var idMovie = req.params.idMovie;
 
   User.findOne({
     where: {
-      sessionID: idSession,
+      id: idUser,
     },
   }).then((user) => {
     user.update({ moviesID: idMovie }).then(() => {
       User.findOne({
         where: {
-          sessionID: idSession,
+          id: idUser,
         },
       }).then((user) => {
         res.status(201).send(user);

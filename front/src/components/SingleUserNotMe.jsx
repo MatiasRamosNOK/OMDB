@@ -65,9 +65,8 @@ class SingleUserNotMe extends React.Component {
             <h2>{this.state.userOne.userOne.email}</h2>
             <h3>Favourites movies:</h3>
             <div>
-              {Object.keys(this.state.userOne.userOne).includes(
-                "moviesData"
-              ) ? (
+              {Object.keys(this.state.userOne.userOne).includes("moviesData") &&
+              this.state.userOne.userOne.moviesData.length > 1 ? (
                 <Carousel>
                   {this.state.userOne.userOne.moviesData.map((movie, index) => {
                     {
@@ -86,7 +85,9 @@ class SingleUserNotMe extends React.Component {
                     }
                   })}
                 </Carousel>
-              ) : null}
+              ) : (
+                <p>Nothing here</p>
+              )}
             </div>
           </Jumbotron>
         </div>

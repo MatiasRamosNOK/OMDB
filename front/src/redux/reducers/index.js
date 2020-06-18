@@ -5,7 +5,7 @@ import userReducer from "../reducers/user-reducer";
 import usersReducer from "../reducers/users-reducer";
 import userOneReducer from "../reducers/userOne-reducer";
 import filterUser from "../reducers/filterList-reducer";
-
+import addFavorite from "../reducers/addFavorite-reducer";
 export default combineReducers({
   movies: moviesReducer,
   movie: movieReducer,
@@ -13,4 +13,5 @@ export default combineReducers({
   users: usersReducer,
   userOne: userOneReducer,
   filterUser: filterUser,
+  addFavorite: addFavorite,
 });

@@ -1,60 +1,53 @@
 import React from "react";
 import axios from "axios";
+import store from "../redux/store";
+import { addFavorite } from "../redux/actions/addFavorite";
+
 class Favorites extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { autenticated: false, favourite: false };
+    this.state = store.getState();
   }
 
-  addToFavorite(id) {
-    var respuesta;
-    axios
-      .get(`/users/addMovie/${id}`)
-      .then(function (response) {
-        // handle success
-        respuesta = response;
-      })
-      .then(() => {
-        if (respuesta.status == 201) {
-          this.setState({ favourite: true });
-        }
-      });
+  addToFavorite() {
+    var idUser = this.state.user.user.id;
+    var idMovie = this.state.movie.movie.imdbID;
+    store.dispatch(addFavorite(idUser, idMovie));
   }
 
   componentDidMount() {
-    var respuesta;
-    axios
-      .get(`/users/isAutenticated`)
-      .then(function (response) {
-        // handle success
-        respuesta = response;
-      })
-      .then(() => {
-        if (respuesta.status == 200) {
-          this.setState({ autenticated: true });
-        }
-      });
+    this.unsubscribe = store.subscribe(() => {
+      this.setState(store.getState());
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
     return (
       <div>
-        <br />
-
-        {this.state.favourite ? (
-          <button type="button" class="btn btn-success">
-            Success
-          </button>
-        ) : this.state.autenticated ? (
-          <button
-            type="button"
-            class="btn btn-outline-warning"
-            onClick={() => {
-              this.addToFavorite(this.props.id);
-            }}
-          >
-            Agregar a favoritos
-          </button>
+        {this.state.user.user != "" ? (
+          <div>
+            {this.state.user.user.moviesID.includes(
+              this.state.movie.movie.imdbID
+            ) ? (
+              <button type="button" class="btn btn-success">
+                Success
+              </button>
+            ) : (
+              <button
+                type="button"
+                class="btn btn-outline-warning"
+                onClick={() => {
+                  this.addToFavorite(this.props.id);
+                }}
+              >
+                Agregar a favoritos
+              </button>
+            )}
+          </div>
         ) : (
           <a href="/users/login">
             <button type="button" className="btn btn-danger">
@@ -62,8 +55,6 @@ class Favorites extends React.Component {
             </button>
           </a>
         )}
-
-        <br />
       </div>
     );
   }
