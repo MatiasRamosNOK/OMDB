@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import store from "../redux/store";
 import { addFavorite } from "../redux/actions/addFavorite";
-
+import { Link } from "react-router-dom";
 class Favorites extends React.Component {
   constructor(props) {
     super(props);
@@ -49,11 +49,11 @@ class Favorites extends React.Component {
             )}
           </div>
         ) : (
-          <a href="/users/login">
+          <Link to={"/users/login"}>
             <button type="button" className="btn btn-danger">
               No te logeaste
             </button>
-          </a>
+          </Link>
         )}
       </div>
     );

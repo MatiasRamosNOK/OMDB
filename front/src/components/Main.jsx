@@ -7,7 +7,7 @@ import User from "../components/User";
 import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-
+import { connect } from "react-redux";
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +42,7 @@ class Main extends React.Component {
               <InputGroup.Text id="basic-addon1">Movie:</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              placeholder="Username"
+              placeholder="Waiting..."
               aria-label="Username"
               aria-describedby="basic-addon1"
               onChange={(e) => {
