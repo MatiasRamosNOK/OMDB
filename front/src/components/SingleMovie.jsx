@@ -4,6 +4,8 @@ import store from "../redux/store";
 import { fetchMovie } from "../redux/actions/movie";
 import axios from "axios";
 import Favorites from "../components/Favorites";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
 var obj;
 class SingleMovie extends React.Component {
   constructor(props) {
@@ -29,26 +31,38 @@ class SingleMovie extends React.Component {
     return (
       <div>
         {obj.Response == "True" ? (
-          <div>
-            <h2>{obj.Title}</h2>{" "}
-            {obj.Poster != "N/A" ? (
-              <img src={obj.Poster} alt="Image" />
-            ) : (
-              <p>Image not found</p>
-            )}
-            <Favorites id={obj.imdbID} />
-            <br />
-            <p>Year: {obj.Year}</p>
-            <p>Release: {obj.Release}</p>
-            <p>Runtime: {obj.Runtime}</p>
-            <p>Genre: {obj.Genre}</p>
-            <p>Director: {obj.Director}</p>
-            <p>Writer: {obj.Writer}</p>
-            <p>Actors: {obj.Actors}</p>
-            <p>Country: {obj.Country}</p>
-            <p>Awards: {obj.Awards}</p>
-            <p>imdbRating: {obj.imdbRating}</p>
-            <p>imdbVotes: {obj.imdbVotes}</p>
+          <div className="containerMovie">
+            <div className="posterMovie">
+              <Card>
+                {obj.Poster != "N/A" ? (
+                  <Card.Img variant="top" src={obj.Poster} />
+                ) : (
+                  <p>Image not found</p>
+                )}
+                <Card.Body>
+                  <Card.Title style={{ color: "black" }}>
+                    {obj.Title}
+                  </Card.Title>
+                  <Favorites id={obj.imdbID} />
+                </Card.Body>
+              </Card>
+            </div>
+
+            <div className="infoMovie">
+              <ListGroup>
+                <ListGroup.Item>Year: {obj.Year}</ListGroup.Item>
+                <ListGroup.Item>Release: {obj.Release}</ListGroup.Item>
+                <ListGroup.Item>Runtime: {obj.Runtime}</ListGroup.Item>
+                <ListGroup.Item>Genre: {obj.Genre}</ListGroup.Item>
+                <ListGroup.Item>Director: {obj.Director}</ListGroup.Item>
+                <ListGroup.Item>Writer: {obj.Writer}</ListGroup.Item>
+                <ListGroup.Item>Actors: {obj.Actors}</ListGroup.Item>
+                <ListGroup.Item>Country: {obj.Country}</ListGroup.Item>
+                <ListGroup.Item>Awards: {obj.Awards}</ListGroup.Item>
+                <ListGroup.Item>imdbRating: {obj.imdbRating}</ListGroup.Item>
+                <ListGroup.Item>imdbVotes: {obj.imdbVotes}</ListGroup.Item>
+              </ListGroup>
+            </div>
           </div>
         ) : (
           <p>Cargando contenido...</p>

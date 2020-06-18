@@ -81,3 +81,21 @@ a {
   width: 45%;
   margin: 0 auto;
 }
+
+.containerMovie {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.posterMovie {
+  display: flex;
+  width: 30%;
+  margin-top: 30px;
+}
+
+.infoMovie {
+  display: flex;
+  width: 60%;
+}
