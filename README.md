@@ -2,7 +2,7 @@
 
 ##English
 
-Welcome to my proyecto, to start this proyect first clone the repository, then go to back and front and run in both folders the following commands:
+Welcome to my proyect, to start this proyect first clone the repository, then go to back and front and run in both folders the following commands:
 
 npm i 
 npm start
