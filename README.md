@@ -4,7 +4,7 @@
 
 Welcome to my proyect, to start this proyect first clone the repository, then go to back and front and run in both folders the following commands:
 
-npm i 
+npm i ; 
 npm start
 
 and after that the server should be running on port 3000, so go to the browser and navigate to localhost:3000 and enjoy!
