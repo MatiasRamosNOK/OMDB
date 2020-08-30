@@ -8,7 +8,7 @@ and after that the server should be running on port 3000, so go to the browser a
 
 
 PD: I've been creating a full refresh UI for this proyect, you could check it here : https://omdb-new.herokuapp.com/ 
-Login and Register features are not working. The migration will be completed in a few weeks with all the remaining features.
+Login and Register are not working. The migration will be completed in a few weeks with all the remaining features.
 
 
 
